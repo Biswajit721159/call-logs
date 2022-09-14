@@ -1,0 +1,117 @@
+
+body{
+  margin: 0%;
+  padding: 0%;
+  background-color: #E5E8E8   ;
+}
+
+h3{
+  margin: 0%;
+  padding: 1%;
+}
+.header{
+  text-align: center;
+  background-color: #2DF5F5 ;
+  border: 2px #EBEAE6;
+  border-radius: 5px;
+}
+.main{
+  background-color: #EBEAE6;
+  position: absolute;
+  height:  100%;
+  width: 100%;
+  
+}
+.child1{
+  position: absolute;
+  left: 0%;
+  width: 59.5%;
+  height: 100%;
+  background-color:white;
+  border: 2px solid #E5E8E8;
+  border-radius: 5px;
+}
+.child2{
+  position: absolute;
+  right: 0%;
+  width: 40%;
+  height: 100%;
+  background-color: #E5E8E8 ;
+  border: 2px solid #E5E8E8;
+  border-radius: 5px;
+}
+.c1d1{
+  position: absolute;
+  top: 0%;
+  height: 10%;
+  width: 100%;
+  background-color: #17E214;
+}
+
+.mini1{
+  position: absolute;
+  left: 0%;
+  width: 50%;
+  height: 300%;
+  background-color: #14E2DC ;
+  text-align: center;
+  padding-top: 10%;
+}
+.mini2{
+  position: absolute;
+  right: 0%;
+  width: 50%;
+  height: 300%;
+  background-color: #14E2DC ;
+  text-align: center;
+  padding-top: 10%;
+}
+.c2center{
+  margin-top: 5%;
+  margin-left: 20%;
+}
+.table2{
+  position: absolute;
+  left: 10%;
+  top: 40%;
+}
+.htr{
+  border-radius: 3px;
+  background-color: #EBEAE6;
+}
+.btr{
+  margin-top: 100px;
+  border-radius: 3px;
+  background-color: #EBEAE6 ;
+}
+input{
+  border-radius: 3px;
+}
+p{
+  margin: 0%;
+  padding: 0%;
+  color: whitesmoke;
+}
+#m1{
+  margin-top: 10px;
+  margin-left: 10px;
+  height: auto;
+  width: auto ;
+  background-color: #B614E2 ;
+}
+#m2{
+  margin-top: 10px;
+  margin-left: 10px;
+  height: auto;
+  width: auto ;
+  background-color: #F3A508 ;
+}
+#callNo{
+  background-color:#EBEAE6;
+  border-radius: 5px;
+  padding: 3px;
+}
+#findNo{
+  border-radius: 5px;
+  padding: 3px;
+}
