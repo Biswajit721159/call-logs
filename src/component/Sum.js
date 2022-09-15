@@ -1,18 +1,35 @@
 import React, { useState } from "react";
-<link rel="stylesheet" href="index.css" />;
+<link rel="stylesheet" href="index.css" />
 export default function Sum() {
+
+
+  //state section ----
   const [mobileNumber, setmobileNumber] = useState("");
   const [SearchmobileNumber, setSearchmobileNumber] = useState("");
 
   const [map, setmap] = useState([]);
   const [call,setcall]=useState([]);
+  const[searchcall,setsearchcall]=useState([]);
 
-
+  const [table,settable]=useState(false);
 
   // searching  information 
 
   const callInfo = () => {
-
+    let arr=call.filter((value,ind)=>{
+      return call[ind][0]===SearchmobileNumber;
+    })
+    if(arr.length==0)
+    {
+      alert( "sorry "+ SearchmobileNumber +" is not found");
+      setSearchmobileNumber("");
+    }
+    else
+    {
+         settable(true);
+         setSearchmobileNumber("");
+         setsearchcall([...arr]);
+    }
     
   };
 
@@ -25,14 +42,13 @@ export default function Sum() {
     if (val === 0) 
     {
       alert("please type  10 digit number");
+      settable(false);
     } 
     else 
     {
       let x = findoccarance(mobileNumber);
-
       const current = new Date();
       const date = `${current.getHours()}:${current.getMinutes()+1}:${current.getSeconds()}`;
-      console.log(date);
       if (x === 0) 
       {
         map.unshift({id:x+1,value:mobileNumber});
@@ -40,6 +56,7 @@ export default function Sum() {
         setcall([...call]);
         setmap([...map]);
         setmobileNumber("");
+        settable(false);
       } 
       else 
       {
@@ -69,9 +86,9 @@ export default function Sum() {
           }
          }
          setmobileNumber("");
+         settable(false);
       }
     }
-    console.log(call);
   };
 
 
@@ -117,11 +134,19 @@ export default function Sum() {
 
 //delete phone number 
 
-const Delete = (id)=>{
+const Delete = (id,Mobile)=>{
   let narr = map.filter((user, index) => {
     return index !== id;
   });
   setmap([...narr]);
+
+  let arr=call.filter((user,index)=>{
+    return (call[index][0]!=Mobile) ;
+  });
+
+  settable(false);
+  setcall([...arr]);
+
 }
 
 
@@ -163,7 +188,6 @@ const Delete = (id)=>{
                   Submit
                 </button>
               </form>
-              <p id="m1"></p>
             </div>
             <div className="mini2">
               <form name="form2">
@@ -179,16 +203,17 @@ const Delete = (id)=>{
                 />
                 <button
                   type="button"
-                  className="btn btn-primary mx-2"
+                  className="btn btn-warning mx-2"
                   onClick={callInfo}
                 >
-                  Submit
+                  Search
                 </button>
               </form>
-              <p id="m2"></p>
             </div>
           </div>
           <div className="c1d2">
+            {
+            (table==true)?
             <table className="table2 ">
               <thead>
                 <tr>
@@ -197,21 +222,19 @@ const Delete = (id)=>{
               </thead>
               <tbody id="cInfo">
                {
-                  call.map((val,index)=>(
+                  searchcall.map((val,index)=>(
                     <tr key={index}>
-                        {/* <th scope="row">{call[index][0]}</th> */}
-                        <td>
                             {
-                              call[index].map((value,ind)=>
-                                <td>{call[index][ind]}    ,   </td>
+                              searchcall[index].map((value,ind)=>
+                                (ind==0)?<td key={ind}>{searchcall[index][ind]} --- </td>:  (ind==searchcall[index].length-1)?<td key={ind}>{searchcall[index][ind]}</td >:<td key={ind}>{searchcall[index][ind]}  ,  </td>
                               )
                             }
-                        </td>
                     </tr>
                   ))
                 }
               </tbody>
-            </table>
+            </table>:""
+          }
           </div>
         </div>
         <div className="child2">
@@ -238,7 +261,7 @@ const Delete = (id)=>{
                       </button>
                       <button
                   className="btn btn-danger mx-4"
-                  onClick={(e) => Delete(index)}
+                  onClick={(e) => Delete(index,name.value)}
                 >
                   Delete User
                 </button>
