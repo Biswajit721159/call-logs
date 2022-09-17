@@ -1,27 +1,45 @@
+
 import React, { useState } from "react";
 <link rel="stylesheet" href="index.css" />
 export default function Sum() {
 
 
-  //state section ----
+  //Usestate section ----
   const [mobileNumber, setmobileNumber] = useState("");
   const [SearchmobileNumber, setSearchmobileNumber] = useState("");
 
   const [map, setmap] = useState([]);
   const [call,setcall]=useState([]);
+
   const[searchcall,setsearchcall]=useState([]);
 
   const [table,settable]=useState(false);
 
+
+
+
+
+
+
+
   // searching  information 
 
   const callInfo = () => {
-    let arr=call.filter((value,ind)=>{
-      return call[ind][0]===SearchmobileNumber;
-    })
-    if(arr.length==0)
+    let arr=[];
+    for(let i=0;i<call.length;i++)
     {
-      alert( "sorry "+ SearchmobileNumber +" is not found");
+      if(call[i][0]===SearchmobileNumber)
+      {
+        for(let j=0;j<call[i].length;j++)
+        {
+           arr.push(call[i][j]);
+        }
+      }
+    }
+    if(arr.length===0 || arr.length===1)
+    {
+      settable(false);
+      alert( "sorry "+ SearchmobileNumber +" is not found any record!!");
       setSearchmobileNumber("");
     }
     else
@@ -30,7 +48,6 @@ export default function Sum() {
          setSearchmobileNumber("");
          setsearchcall([...arr]);
     }
-    
   };
 
 
@@ -148,7 +165,38 @@ const Delete = (id,Mobile)=>{
   setcall([...arr]);
 
 }
+//delete indivisual call record
 
+const Deletecall = (Mobile,ind)=>{
+
+    let narr=searchcall.filter((value,i)=>{
+      return i!=ind;
+    })
+    setsearchcall([...narr]);
+    
+    for(let i=0;i<map.length;i++)
+    {
+       if(map[i].value==Mobile)
+       {
+         map[i].id=map[i].id-1;
+       }
+    }
+    setmap([...map]);
+    
+    for(let i=0;i<call.length;i++)
+    {
+      if(call[i][0]==Mobile)
+      {
+         let arr=call[i].filter((value,j)=>{
+           return j!=ind;
+         })
+         call[i]=arr;
+         setcall([...call]);
+      }
+    }
+
+
+  }
 
 
 
@@ -215,27 +263,22 @@ const Delete = (id,Mobile)=>{
             {
             (table==true)?
             <table className="table2 ">
-              <thead>
-                <tr>
-                  <td className="htr" id="givenNo"> Call Information </td>
-                </tr>
-              </thead>
               <tbody id="cInfo">
                {
-                  searchcall.map((val,index)=>(
-                    <tr key={index}>
-                            {
-                              searchcall[index].map((value,ind)=>
-                                (ind==0)?<td key={ind}>{searchcall[index][ind]} --- </td>:  (ind==searchcall[index].length-1)?<td key={ind}>{searchcall[index][ind]}</td >:<td key={ind}>{searchcall[index][ind]}  ,  </td>
-                              )
-                            }
-                    </tr>
+                  searchcall.map((value,ind)=>(
+                    <th key={ind}>
+                      {
+                          (ind==0)? <td ><button type="button" className="btn btn-light col">{value}</button></td> :
+                          <td ><button type="button" className="btn btn-danger col" onClick={(e)=>Deletecall(searchcall[0],ind)}>{value}</button></td>
+                      }
+                    </th>
                   ))
                 }
               </tbody>
-            </table>:""
+            </table>:" "
           }
           </div>
+          
         </div>
         <div className="child2">
           <div className="c2center">
