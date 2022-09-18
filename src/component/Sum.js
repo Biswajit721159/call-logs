@@ -63,9 +63,11 @@ export default function Sum() {
     } 
     else 
     {
+
+      const monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
       let x = findoccarance(mobileNumber);
       const current = new Date();
-      const date = `${current.getHours()}:${current.getMinutes()+1}:${current.getSeconds()}`;
+      const date = ` ${ monthNames[current.getMonth()]} ${current.getDate()} , ${current.getHours()}:${current.getMinutes()+1}:${current.getSeconds()}`;
       if (x === 0) 
       {
         map.unshift({id:x+1,value:mobileNumber});
